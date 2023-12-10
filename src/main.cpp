@@ -2,8 +2,12 @@
 
 #include <Servo.h>
 
-void setup() {
+Servo gripper;
 
+#define GRIPPER_OUTPUT_PIN PIN7
+
+void setup() {
+    gripper.attach(GRIPPER_OUTPUT_PIN);
 }
 
 void loop() {
