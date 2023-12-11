@@ -1,12 +1,9 @@
 #include <Arduino.h>
 #include "SerialCommunication.h"
 
-#include "PositionHandling.h"
-
-PositionHandling positionHandler;
-
 SerialCommunication::SerialCommunication(/* args */)
 {
+    this->positionHandler = new PositionHandling();
 }
 
 SerialCommunication::~SerialCommunication()
