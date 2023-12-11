@@ -1,21 +1,21 @@
 #ifndef POSITION_HANDLING_H
 #define POSITION_HANDLING_H
 
+#include <Arduino.h>
 #include <stdint.h>
+
+#include "StepperControl.h"
 
 class PositionHandling
 {
 private:
-    uint16_t currentSteps = 0;
-    uint16_t endSteps = 0;
-
-    void homeAxis();
-    void moveAxis();
+    StepperControl* xAxis;
+    StepperControl* yAxis;
 public:
     PositionHandling();
     ~PositionHandling();
 
-    void newPositionReceived();
+    void newPositionReceived(uint8_t xTargetPosition, uint8_t yTargetPosition);
 };
 
 #endif
