@@ -33,18 +33,18 @@ void SerialCommunication::loopSerialConnection()
             }
         }
 
-        if (foundWords[0] == "newTargetPosition") {
-            // Call new position to Position Class
-            Serial.println("New target position received:");
+        String command = foundWords[0];
 
-            int size = foundWords[1].length();
-            String xTargetPos = foundWords[1].substring(0, (size / 2));
-            String yTargetPos = foundWords[1].substring((size / 2), size);
-
-            Serial.println(xTargetPos + "," + yTargetPos);
-        } else if (foundWords[0] == "newObjectDetected") {
-            // Call gripper adjustment state in Gripper Overview class
-            Serial.println("New gripper action received");
+        if (command == "home") {
+            // Start homing
+        } else if (command == "move_axis") {
+            // Move given axis to certain pos
+        } else if (command == "target_pos") {
+            // Move both axis to given pos
+        } else if (command == "new_detections") {
+            // Move to multiple pos
+        } else {
+            Serial.println("Command unknown");
         }
     }
 }
