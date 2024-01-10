@@ -11,6 +11,7 @@ class StepperControl
 private:
     uint16_t currentSteps = 0;
     uint16_t endSteps = 0;
+    float stepsPerPercentage = 0.0;
 
     uint8_t dirPin;
     uint8_t stepPin;
@@ -19,7 +20,7 @@ public:
     ~StepperControl();
 
     void homeAxis();
-    void moveAxis();
+    void moveAxis(uint8_t targetPosInPercentage);
 };
 
 
