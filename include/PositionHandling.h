@@ -9,7 +9,8 @@
 enum AXIS
 {
     X = 0,
-    Y = 1
+    Y = 1,
+    ALL = 2
 };
 
 struct Position
@@ -30,7 +31,7 @@ public:
     ~PositionHandling();
 
     void moveGivenAxis(AXIS axis, uint8_t moveToPercentage);
-    void homeBothAxis();
+    void homeGivenAxis(AXIS axis);
     void moveToPosition(Position targetPos);
     void moveToDetections(String listOfPositions);
 };

@@ -29,10 +29,29 @@ void PositionHandling::moveGivenAxis(AXIS axis, uint8_t moveToPercentage)
     }
 }
 
-void PositionHandling::homeBothAxis()
+void PositionHandling::homeGivenAxis(AXIS axis)
 {
-    this->xAxis->homeAxis();
-    this->yAxis->homeAxis();
+    switch (axis)
+    {
+    case AXIS::X:
+        Serial.println("Homing X-axis");
+        this->xAxis->homeAxis();
+        break;
+
+    case AXIS::Y:
+        Serial.println("Homing Y-axis");
+        this->yAxis->homeAxis();
+        break;
+
+    case AXIS::ALL:
+        Serial.println("Homing all axis");
+        this->xAxis->homeAxis();
+        this->yAxis->homeAxis();
+        break;
+
+    default:
+        break;
+    }
 }
 
 void PositionHandling::moveToPosition(Position targetPos)
@@ -49,7 +68,7 @@ void PositionHandling::moveToDetections(String listOfPositions)
     while (listOfPositions.length() > 0)
     {
         int index = listOfPositions.indexOf(';');
-        if (index == -1) // No space found
+        if (index == -1) // No ; found
         {
             foundPositions[positionCount++] = listOfPositions;
             break;
