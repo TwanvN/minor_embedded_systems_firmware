@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "SerialCommunication.h"
+#include <stdlib.h>
 
 SerialCommunication::SerialCommunication(/* args */)
 {
@@ -37,12 +38,28 @@ void SerialCommunication::loopSerialConnection()
 
         if (command == "home") {
             // Start homing
+            AXIS targetAxis = static_cast<AXIS>(atoi(foundWords[1].c_str()));
+            this->positionHandler->homeGivenAxis(targetAxis);
+
         } else if (command == "move_axis") {
             // Move given axis to certain pos
+            AXIS targetAxis = static_cast<AXIS>(atoi(foundWords[1].c_str()));
+            this->positionHandler->moveGivenAxis(targetAxis, atoi(foundWords[2].c_str()));
+
         } else if (command == "target_pos") {
             // Move both axis to given pos
+            uint8_t xValue = atoi(foundWords[1].substring(0, foundWords[1].indexOf(",")).c_str());
+            uint8_t yValue = atoi(foundWords[1].substring(foundWords[1].indexOf(",") + 1).c_str());
+
+            Position targetPos;
+            targetPos.x = xValue;
+            targetPos.y = yValue;
+
+            this->positionHandler->moveToPosition(targetPos);
+
         } else if (command == "new_detections") {
             // Move to multiple pos
+            this->positionHandler->moveToDetections(foundWords[1]);
         } else {
             Serial.println("Command unknown");
         }

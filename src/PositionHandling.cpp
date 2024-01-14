@@ -84,13 +84,19 @@ void PositionHandling::moveToDetections(String listOfPositions)
 
     for (int i = 0; i < positionCount; i++)
     {
-        struct Position pos = {static_cast<uint8_t>(foundPositions[i].charAt(0)), static_cast<uint8_t>(foundPositions[i].charAt(2))};
+        struct Position pos;
+        pos.x = atoi(foundPositions[i].substring(0, foundPositions[i].indexOf(",")).c_str());
+        pos.y = atoi(foundPositions[i].substring(foundPositions[i].indexOf(",") + 1).c_str());
+
+        Serial.println(pos.x);
+        Serial.println(pos.y);
+
         calculatedPositions[i] = pos;
     }
 
     for (Position pos : calculatedPositions) {
         this->moveToPosition(pos);
-        delay(5);
+        delay(2000);
     }
     
 }
