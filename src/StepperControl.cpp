@@ -26,9 +26,9 @@ void StepperControl::homeAxis()
     while (!digitalRead(this->homePin))
     {
         digitalWrite(this->stepPin, HIGH);
-        delayMicroseconds(500);
+        delayMicroseconds(5000);
         digitalWrite(this->stepPin, LOW);
-        delayMicroseconds(500);
+        delayMicroseconds(5000);
     }
 
     Serial.println("Found home position");
@@ -49,9 +49,9 @@ void StepperControl::moveAxis(uint8_t targetPosInPercentage)
         for (int i = 0; i < stepsToTake; i++)
         {
             digitalWrite(this->stepPin, HIGH);
-            delayMicroseconds(500);
+            delayMicroseconds(5000);
             digitalWrite(this->stepPin, LOW);
-            delayMicroseconds(500);
+            delayMicroseconds(5000);
 
             this->currentSteps--;
         }
@@ -63,9 +63,9 @@ void StepperControl::moveAxis(uint8_t targetPosInPercentage)
         for (int i = 0; i < stepsToTake; i++)
         {
             digitalWrite(this->stepPin, HIGH);
-            delayMicroseconds(500);
+            delayMicroseconds(5000);
             digitalWrite(this->stepPin, LOW);
-            delayMicroseconds(500);
+            delayMicroseconds(5000);
 
             this->currentSteps++;
         }
