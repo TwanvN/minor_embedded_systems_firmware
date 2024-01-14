@@ -36,17 +36,17 @@ void SerialCommunication::loopSerialConnection()
 
         String command = foundWords[0];
 
-        if (command == "home") {
+        if (command == "homeAxis") {
             // Start homing
             AXIS targetAxis = static_cast<AXIS>(atoi(foundWords[1].c_str()));
             this->positionHandler->homeGivenAxis(targetAxis);
 
-        } else if (command == "move_axis") {
+        } else if (command == "newAxisPos") {
             // Move given axis to certain pos
             AXIS targetAxis = static_cast<AXIS>(atoi(foundWords[1].c_str()));
             this->positionHandler->moveGivenAxis(targetAxis, atoi(foundWords[2].c_str()));
 
-        } else if (command == "target_pos") {
+        } else if (command == "newTargetPos") {
             // Move both axis to given pos
             uint8_t xValue = atoi(foundWords[1].substring(0, foundWords[1].indexOf(",")).c_str());
             uint8_t yValue = atoi(foundWords[1].substring(foundWords[1].indexOf(",") + 1).c_str());
