@@ -15,11 +15,13 @@ void PositionHandling::moveGivenAxis(AXIS axis, uint8_t moveToPercentage)
     switch (axis)
     {
     case AXIS::X:
-        /* code */
+        Serial.println("Moving X-axis");
+        this->xAxis->moveAxis(moveToPercentage);
         break;
 
     case AXIS::Y:
-
+        Serial.println("Moving Y-axis");
+        this->yAxis->moveAxis(moveToPercentage);
         break;
 
     default:
