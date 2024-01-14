@@ -2,8 +2,8 @@
 
 PositionHandling::PositionHandling()
 {
-    this->xAxis = new StepperControl(0, 1);
-    this->yAxis = new StepperControl(0, 1);
+    this->xAxis = new StepperControl(PD2, PD5, 9);
+    this->yAxis = new StepperControl(PD3, PD6, 10);
 }
 
 PositionHandling::~PositionHandling()

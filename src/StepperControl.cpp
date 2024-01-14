@@ -1,12 +1,16 @@
 #include "StepperControl.h"
 
-StepperControl::StepperControl(uint8_t directionPin, uint8_t stepsPin)
+StepperControl::StepperControl(uint8_t directionPin, uint8_t stepsPin, uint8_t homeButtonPin)
 {
     this->dirPin = directionPin;
     this->stepPin = stepsPin;
 
+    this->homePin = homeButtonPin;
+
     pinMode(this->dirPin, OUTPUT);
     pinMode(this->stepPin, OUTPUT);
+
+    pinMode(this->homePin, INPUT);
 
     this->homeAxis();
 }
@@ -19,8 +23,8 @@ void StepperControl::homeAxis()
 {
     digitalWrite(this->dirPin, LEFT);
 
-    while (true)
-    { // TODO: Add check for homing button
+    while (!digitalRead(this->homePin))
+    {
         digitalWrite(this->stepPin, HIGH);
         delayMicroseconds(500);
         digitalWrite(this->stepPin, LOW);
@@ -28,35 +32,6 @@ void StepperControl::homeAxis()
     }
 
     Serial.println("Found home position");
-
-    digitalWrite(this->dirPin, RIGHT);
-
-    while (true)
-    { // TODO: Add check for end position button
-        digitalWrite(this->stepPin, HIGH);
-        delayMicroseconds(500);
-        digitalWrite(this->stepPin, LOW);
-        delayMicroseconds(500);
-
-        this->currentSteps++;
-    }
-
-    this->endSteps = this->currentSteps;
-    this->stepsPerPercentage = (static_cast<float>(this->endSteps) / 100.0f);
-
-    Serial.println("Found end position");
-
-    digitalWrite(this->dirPin, LEFT);
-
-    while (this->currentSteps > 0)
-    {
-        digitalWrite(this->stepPin, HIGH);
-        delayMicroseconds(500);
-        digitalWrite(this->stepPin, LOW);
-        delayMicroseconds(500);
-
-        this->currentSteps--;
-    }
 
     Serial.println("Done homing");
 }
